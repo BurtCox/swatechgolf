@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'swatechgolf'
+    version =  '0.1.0'
+}
+
+repositories {
+	mavenLocal()
+    maven { url "https://nexus-tools.swacorp.com/AIS/content/groups/public/" }
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+	compile 'javax.mail:mail:1.4.5'
+   compile 'com.sun.mail:smtp:1.4.4'
+   compile 'javax.activation:activation:1.1'
+   compile 'commons-io:commons-io:2.5'	
+	// https://mvnrepository.com/artifact/commons-lang/commons-lang
+	compile 'commons-lang:commons-lang:2.2'
+    compile 'com.swacorp.ebs:ags-file-utilities:1.0.0-SNAPSHOT'
+    // tag::jetty[]
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    // end::jetty[]
+    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    // end::actuator[]
+    testCompile("junit:junit")
+}
